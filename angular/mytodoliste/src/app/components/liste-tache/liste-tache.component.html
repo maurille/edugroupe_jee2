@@ -1,0 +1,26 @@
+
+<app-search-tache></app-search-tache>
+<a routerLink='/edit/0' class="btn btn-primary"> nouvelle tache</a>
+
+<h3>Liste des taches à faire !</h3>
+  <table  class="table table-bordered table-striped">
+    <thead>
+      <tr> <th>libelle</th> <th>description</th><th>priorite</th> <th>date Creation</th> <th>date Limite</th> <th>Contexte</th> <th>termine</th><th>actions</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tache of taches | async">
+        <td> {{tache.libelle}} </td>
+        <td> {{tache.description}} </td>
+        <td> {{tache.priorite}} </td>
+        <td> {{tache.dateCreation | date:'yyyy-MM-dd'}} </td>
+        <td> {{tache.dateLimite | date:'yyyy-MM-dd'}} </td>
+        <td> {{tache.contexte}} </td>
+        <td> {{tache.termine}} </td>
+        <td>
+            <a class="btn btn-success" routerLink='/edit/{{tache.id}}' >edition</a>
+        </td>
+        <td> <button class="btn btn-danger" (click)="deleteTache(tache.id)">delete</button> </td>
+      </tr>
+
+    </tbody>
+  </table>

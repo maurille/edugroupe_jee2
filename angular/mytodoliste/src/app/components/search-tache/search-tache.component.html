@@ -1,0 +1,29 @@
+<form>
+  <div class="form-group">
+      <label for="searchTerm" >Recherche une tache par libelle:  {{searchTerm}} </label>
+      <input type="text"
+             class="form-control" 
+             name="searchTerm" 
+             id="searchTerm" 
+             [ngModel]="searchTerm"
+             (ngModelChange)="changeTerm($event)" />
+    </div>   
+
+</form>
+
+<form>
+  <div class="form-group">
+      <label for="searchTerm" >Afficher les taches par priorite:  {{searchTerm}} </label>
+      <input type="number"
+             class="form-control" 
+             name="searchPriorite" 
+             id="searchTerm" 
+             min="1"
+             max="5"
+             [ngModel]="searchPriorite"
+             (ngModelChange)="changePriorite($event)" />
+    </div>      
+
+</form>
+
+

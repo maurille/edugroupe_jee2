@@ -1,0 +1,36 @@
+<div class="well">
+  <!-- le # permet de declarer une nouvelle varable automatiquement instancie=ée, 
+    le ngForm fournir cette variable à le validation de formulaire-->
+
+    
+    <form novalidate #monform = "ngForm" (ngSubmit)="sauverTache(monform)">
+      <div class="form-group">
+        <label>Titre</label>
+        <input class="form-control"name="titre"  [(ngModel)]="editManga.titre" required minlength="3" />
+      </div>
+
+      <ul *ngIf="monform.controls.titre?.errors && monform.controls.titre?.dirty ">
+        <li *ngIf="monform.controls.titre.errors?.required">le titre est requis</li>
+        <li *ngIf="monform.controls.titre.errors?.minlength">le titre est trop court</li>
+      </ul>
+
+      <div class="form-group">
+          <label>Auteur</label>
+          <input class="form-control"name="auteur" [(ngModel)]="editManga.auteur"required minlength="3" />
+      </div>
+      <div class="form-group">
+          <label>DateParution</label>
+          <input type="date" class="form-control"name="dateParution" [ngModel]="editManga.dateParution | date:'yyyy-MM-dd'" 
+                                                        (ngModelChange)="editManga.dateParution = $event" required />
+      </div>
+      <div class="form-group">
+          <label>Genre</label>
+          <input class="form-control"name="genre" [(ngModel)]="editManga.genre" required minlength="4" />
+      </div>
+      <div class="form-group">
+        <label>Rating</label>
+        <input class="form-control"name="rating" [(ngModel)]="editManga.rating"  required pattern="^[0-5]$" />
+    </div>
+      <button [disabled]="monform.invalid" class="btn btn-primary" type="submit">sauver Manga</button>
+    </form>
+  </div>
