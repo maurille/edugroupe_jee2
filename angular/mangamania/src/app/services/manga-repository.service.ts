@@ -13,7 +13,7 @@ export class MangaRepositoryService {
   private searchTitre: String; // pour effectuer une recherche sur le titre
   private noPage: number;
   private filterByRatingMin : number;
-  private baseUrl : string = "http://localhost:8080/mangamania/";
+  private baseUrl : string = "http://localhost:8080/mangamaniaboot/";
 
   public setNoPage(no : number) :void{
     this.noPage = no;
