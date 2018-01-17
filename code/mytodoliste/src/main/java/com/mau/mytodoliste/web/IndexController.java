@@ -59,12 +59,12 @@ public class IndexController {
 	 }
 	
 
-	
 	@RequestMapping(value="/taches/search/{search:.+}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	 public List<Tache> searchTache(@PathVariable("search") String search){
 		return tacheRepository.findByLibelleContaining(search);
 	 }
+	
 	
 	@RequestMapping(value="/ptaches/search/{search:.+}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -77,12 +77,6 @@ public class IndexController {
 			return tacheRepository.findByLibelleContaining(search, page);
 	 }
 	
-/*
-	@RequestMapping(value="/taches/priorite/{priorite:.+}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	 public List<Tache> findByPrioriteGreaterThan(@PathVariable("priorite") int priorite){
-		return tacheRepository.findByPrioriteGreaterThan(priorite);
-	 }*/
 	
 	
 	@RequestMapping(value="/taches", method=RequestMethod.POST, 
