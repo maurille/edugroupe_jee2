@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule} from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
@@ -13,6 +13,10 @@ import { MangaRepositoryService } from './services/manga-repository.service';
 import { SearchMangaComponent } from './components/search-manga/search-manga.component';
 import { ListeMangaComponent } from './components/liste-manga/liste-manga.component';
 import { EditMangaComponent } from './components/edit-manga/edit-manga.component';
+import { LoginComponent } from './components/login/login.component';
+import { UtilisateurInfoComponent } from './components/utilisateur-info/utilisateur-info.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { AuthManagerService } from './services/auth-manager.service';
 
 
 
@@ -22,6 +26,8 @@ import { EditMangaComponent } from './components/edit-manga/edit-manga.component
     SearchMangaComponent,
     ListeMangaComponent,
     EditMangaComponent,
+    LoginComponent,
+    UtilisateurInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,10 +41,18 @@ import { EditMangaComponent } from './components/edit-manga/edit-manga.component
     RouterModule.forRoot([
       {path: 'liste', component: ListeMangaComponent},
       {path: 'edit/:id', component: EditMangaComponent},
+      {path: 'login', component: LoginComponent},
       {path: '', redirectTo: '/liste', pathMatch: 'full'}
     ])
   ],
-  providers: [MangaRepositoryService],
+  providers: [MangaRepositoryService,
+    AuthManagerService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
