@@ -1,0 +1,32 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">selected tags :</h3>
+    </div>
+    <div class="panel-body">
+        
+        <li  *ngFor = "let tag of tagSelected | async" class="btn-group btn-group-xs btn-group-justified" role="group">
+            <a type="button" class="btn btn-default btn-group">{{tag.libelle | truncate:10}}</a>
+            <a type="button" style="width: .25%;" class="btn btn-default btn-group" (click)="removeFromSelectedTag(tag)">
+                <span class="glyphicon glyphicon-arrow-down" ></span>
+            </a>
+          </li>
+    </div>
+</div> 
+<div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">All tags :</h3>
+    </div>
+    <div class="panel-body">
+     
+        <li  *ngFor = "let tag of tagSubject | async" class="btn-group btn-group-xs btn-group-justified" role="group">
+          <a type="button" class="btn btn-default btn-group">{{tag.libelle | truncate:10}}</a>
+          <a type="button" style="width: .25%;" class="btn btn-default btn-group" (click)="addToSelectedTag(tag)">
+              <span class="glyphicon glyphicon-arrow-up" ></span>
+          </a>
+        </li>
+     
+    </div>
+</div> 
+
+
+    
