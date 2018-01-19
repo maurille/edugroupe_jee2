@@ -22,6 +22,10 @@ import{AuthInterceptorService} from "./services/auth-interceptor.service";
 import { LoginComponent } from './components/login/login.component'
 import { AuthManagerService } from 'app/services/auth-manager.service';
 import { UtilisateurInfoComponent } from './components/utilisateur-info/utilisateur-info.component';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
+import{AlertModule} from "ngx-bootstrap/alert";
+import { AlertDisplayComponent } from './components/alert-display/alert-display.component'
+import { AlertManagerService } from 'app/services/alert-manager.service';
 
 
 
@@ -34,7 +38,9 @@ import { UtilisateurInfoComponent } from './components/utilisateur-info/utilisat
     TagSelectorComponent,
     ImageUploadComponent,
     LoginComponent,
-    UtilisateurInfoComponent
+    UtilisateurInfoComponent,
+    RegisterUserComponent,
+    AlertDisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -48,16 +54,19 @@ import { UtilisateurInfoComponent } from './components/utilisateur-info/utilisat
     ProgressbarModule.forRoot(),
     PaginationModule.forRoot(),
     ModalModule.forRoot(),
+    AlertModule.forRoot(),
     RouterModule.forRoot([
       {path: 'liste', component: ImageListComponent},
       {path: 'upload', component: ImageUploadComponent},
       {path: 'login', component: LoginComponent},
+      {path: 'register', component: RegisterUserComponent},
       {path: '', redirectTo: '/liste', pathMatch: 'full'}
     ])
   ],
   providers: [
     ImageRepositoryService,
     TagRepositoryService,
+    AlertManagerService,
     AuthManagerService,
     {
       provide: HTTP_INTERCEPTORS,

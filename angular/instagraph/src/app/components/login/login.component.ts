@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
               .subscribe(u => {  
                                   // l'utilisateur nouvellement loggédevient l'utilisateur courrant
                                   //this.authManager.setCurrentUser(u);
+                                  newuser.roles = u.roles;
                                    console.log(" je suis bien loggé avec " + u.username);
                                    this.router.navigateByUrl("/liste");
                               });

@@ -20,7 +20,7 @@ export class AuthManagerService {
     if(this.currentUser == null)
       return false;
     else
-      return true;;
+      return true;
   }
 
   public getCredentials():string{
@@ -32,6 +32,16 @@ export class AuthManagerService {
     this.currentUser = utilisateur;
     // publication de nouveau user qui est loggé
     this.utilisateurSubject.next([true, this.currentUser])
+  }
+
+  public isRoleActive(roleName : string) : boolean{
+    if (this.currentUser == null || this.currentUser.roles == null)
+      return false;
+    if(this.currentUser.roles.findIndex(r => r.roleName == roleName) != -1){
+      return true;
+    }else
+      return false;
+
   }
 
   public logOut(): void{

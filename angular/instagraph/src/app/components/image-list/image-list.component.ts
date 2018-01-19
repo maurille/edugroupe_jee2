@@ -8,6 +8,9 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TemplateRef } from '@angular/core/src/linker/template_ref';
 import { Lightbox } from 'angular2-lightbox';
+import { AuthManagerService } from 'app/services/auth-manager.service';
+import { AlertManagerService } from 'app/services/alert-manager.service';
+import { error } from 'util';
 //import { TruncatePipe } from 'angular-pipes/src/string/truncate.pipe';
 //import { BytesPipe } from 'angular-pipes/src/math/bytes.pipe';
  
@@ -29,7 +32,9 @@ export class ImageListComponent implements OnInit {
 
   constructor(private imageRepository: ImageRepositoryService,
   private modalService : BsModalService,
-  private lightbox: Lightbox ) { }
+  private lightbox: Lightbox,
+  private authmanager : AuthManagerService,
+  private alertManager: AlertManagerService) { }
 
   public getImageThumbUrl(id : number): string{
     return this.imageRepository.getImageThumbUrl(id);
@@ -41,6 +46,11 @@ export class ImageListComponent implements OnInit {
 
   public pageChanged(event : any) : void {
     this.imageRepository.setNoPage(event.page - 1);
+  }
+
+  // ai je le droit de supprimer
+  public canDelete(): boolean{
+    return this.authmanager.isRoleActive("ROLE_ADMIN") || this.authmanager.isRoleActive("ROLE_USER");;
   }
 
   public openGalerie(image:Image): void{
@@ -85,7 +95,9 @@ export class ImageListComponent implements OnInit {
                                               this.images.next(p.content);
                                               this.totalItems = p.totalElements;
                                               this.currentPage= p.number + 1;
-                                             });
+                                             },err => {
+                                                  this.alertManager.handleErrorResponse(err);
+                                                });
     this.imageRepository.refreshList();
   }
 

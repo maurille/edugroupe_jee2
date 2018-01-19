@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Promise } from 'q';
 import { Tag } from 'app/models/tag';
 import { Subject } from 'rxjs/Subject';
-
+import { AlertManagerService } from 'app/services/alert-manager.service';
 
 
 @Injectable()
@@ -24,7 +24,7 @@ private baseUrlApi: string = "http://localhost:8080/api/images";
 private baseUrlextendedApi: string = "http://localhost:8080/extendedapi/image";
 
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private alertManager : AlertManagerService) {
 
     // initialisation des images
     this.noPage = 0;
@@ -83,6 +83,9 @@ public deleteImages(ids: number[]) : void{
               .then(result => { 
                 console.log(result);
                 this.refreshList();
+                this.alertManager.handelMessage("success", "image bien supprimer");
+              },err => {
+                this.alertManager.handleErrorResponse(err);
               });
 
 }
@@ -104,7 +107,9 @@ public deleteImages(ids: number[]) : void{
     this._http.get<Page<Image>>(`${this.baseUrlextendedApi}/findbytagfull`, {params: urlparams})
               .toPromise()
                 .then(images => this.ImagesSubject.next(images))
-                .catch(e => console.log("Pas d'image reçu"));
+                .catch(e => {
+                    this.alertManager.handleErrorResponse(e);
+                });
    }
 
 
