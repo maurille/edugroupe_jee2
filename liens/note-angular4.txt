@@ -1,0 +1,11 @@
+npm install --save angular2-lightbox   // lightbox permet de faire une gallerie
+vient de : https://github.com/themyth92/angular2-lightbox
+https://www.youtube.com/watch?v=8AqJmdyKf-I
+https://www.youtube.com/watch?v=6wE6VhF_uNo
+https://www.youtube.com/watch?v=sUZiBbrYtR8
+
+ajouter dans le angular-cli.json: dans le style : "../node_modules/angular2-lightbox/lightbox.css"
+ajouter aussi autre chose, voir ca 
+
+npm install angular-pipes --save
+
